@@ -4,7 +4,6 @@ impl Solution {
     pub fn restore_ip_addresses(s: String) -> Vec<String> {
         let mut result = String::new();
 
-
         for (i, char) in s.chars().enumerate() {
             if i > 0 {
                 result.push('.');
@@ -51,6 +50,15 @@ mod tests {
             String::from("10.1.0.23"),
             String::from("10.10.2.3"),
             String::from("101.0.2.3"),
+        ])
+    }
+
+    #[test]
+    fn five_characters() {
+        let result = Solution::restore_ip_addresses(String::from("10000"));
+
+        assert_eq!(result, vec![
+            String::from("10.0.0.0")
         ])
     }
 }
