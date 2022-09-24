@@ -91,23 +91,12 @@ mod tests {
 
     #[test]
     fn branch_single_character_generation() {
-        let (result, index) = Solution::get_next_generation(String::from("1"), 0, String::from(""));
+        let (result, index) = Solution::get_next_generation(
+            String::from("11"),
+            1,
+            String::from("1"));
 
-        assert_eq!(result, vec![String::from("1")]);
+        assert_eq!(result, vec![String::from("11"), String::from("1.1")]);
         assert_eq!(index, 1);
     }
-
-    // #[test]
-    // fn branch_single_character_second_generation() {
-    //     let result = get_next_generation(String::from("1"), 1, String::from("1"));
-
-    //     assert_eq!(result, vec![]);
-    // }
-
-    // #[test]
-    // fn branch_two_characters() {
-    //     let (result, index) = Solution::get_next_generation(String::from("11"), 0, String::from(""));
-
-    //     assert_eq!(result, vec![String::from("11"), String::from("1.1")]);
-    // }
 }
