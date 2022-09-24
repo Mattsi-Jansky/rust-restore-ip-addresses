@@ -20,7 +20,7 @@ impl Solution {
     }
 
     fn get_next_generation(
-        s: String,
+        s: &String,
         current_index: usize,
         branch_state: String,
     ) -> (String, String, usize) {
@@ -113,7 +113,7 @@ mod tests {
     #[test]
     fn branch_single_character_generation_ones() {
         let (result1, result2, index) =
-            Solution::get_next_generation(String::from("11"), 1, String::from("1"));
+            Solution::get_next_generation(&String::from("11"), 1, String::from("1"));
 
         assert_eq!(result1, String::from("11"));
         assert_eq!(result2, String::from("1.1"));
@@ -123,7 +123,7 @@ mod tests {
     #[test]
     fn branch_single_character_generation_twos() {
         let (result1, result2, index) =
-            Solution::get_next_generation(String::from("22"), 1, String::from("2"));
+            Solution::get_next_generation(&String::from("22"), 1, String::from("2"));
 
         assert_eq!(result1, String::from("22"));
         assert_eq!(result2, String::from("2.2"));
