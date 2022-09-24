@@ -3,8 +3,13 @@ pub struct Solution {}
 impl Solution {
     pub fn restore_ip_addresses(s: String) -> Vec<String> {
         let mut result = String::new();
+        //frontier Vec<(String, String, usize)>
 
         for (i, char) in s.chars().enumerate() {
+            //if the current node is not valid, return nothing
+            //If there are no more characters from `s` to add, add this to the result
+            //Generate the next generation
+
             if i > 0 {
                 result.push('.');
             }
