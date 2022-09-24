@@ -19,13 +19,28 @@ impl Solution {
         vec![result]
     }
 
-    pub fn get_next_generation(
+    fn get_next_generation(
         s: String,
         current_index: usize,
         branch_state: String,
     ) -> (String, String, usize) {
-        let next_char = &s.as_str()[(current_index..current_index+1)];
-        (format!("{branch_state}{next_char}"), format!("{branch_state}.{next_char}"), current_index + 1)
+        let next_char = &s.as_str()[(current_index..current_index + 1)];
+        (
+            format!("{branch_state}{next_char}"),
+            format!("{branch_state}.{next_char}"),
+            current_index + 1,
+        )
+    }
+
+    fn is_valid_block(block: &str) -> bool {
+        let first_digit = &block[0..1];
+
+        if first_digit == "0" && block.len() > 1 {
+            return false;
+        }
+
+        let number = usize::from_str_radix(block, 10).unwrap();
+        number < 255
     }
 }
 
@@ -97,10 +112,8 @@ mod tests {
 
     #[test]
     fn branch_single_character_generation_ones() {
-        let (result1, result2, index) = Solution::get_next_generation(
-            String::from("11"),
-            1,
-            String::from("1"));
+        let (result1, result2, index) =
+            Solution::get_next_generation(String::from("11"), 1, String::from("1"));
 
         assert_eq!(result1, String::from("11"));
         assert_eq!(result2, String::from("1.1"));
@@ -109,13 +122,39 @@ mod tests {
 
     #[test]
     fn branch_single_character_generation_twos() {
-        let (result1, result2, index) = Solution::get_next_generation(
-            String::from("22"),
-            1,
-            String::from("2"));
+        let (result1, result2, index) =
+            Solution::get_next_generation(String::from("22"), 1, String::from("2"));
 
         assert_eq!(result1, String::from("22"));
         assert_eq!(result2, String::from("2.2"));
         assert_eq!(index, 2);
+    }
+
+    #[test]
+    fn validate_block_in_range() {
+        let result = Solution::is_valid_block("11");
+
+        assert_eq!(true, result);
+    }
+
+    #[test]
+    fn validate_block_outside_range() {
+        let result = Solution::is_valid_block("256");
+
+        assert_eq!(false, result);
+    }
+
+    #[test]
+    fn validate_block_leading_zero() {
+        let result = Solution::is_valid_block("01");
+
+        assert_eq!(false, result);
+    }
+
+    #[test]
+    fn validate_block_zero() {
+        let result = Solution::is_valid_block("0");
+
+        assert_eq!(true, result);
     }
 }
