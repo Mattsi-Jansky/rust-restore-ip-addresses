@@ -19,7 +19,8 @@ impl Solution {
         current_index: usize,
         branch_state: String,
     ) -> (String, String, usize) {
-        (String::from("11"), String::from("1.1"), current_index + 1)
+        let next_char = &s.as_str()[(current_index..current_index+1)];
+        (format!("{branch_state}{next_char}"), format!("{branch_state}.{next_char}"), current_index + 1)
     }
 }
 
@@ -90,7 +91,7 @@ mod tests {
     // }
 
     #[test]
-    fn branch_single_character_generation() {
+    fn branch_single_character_generation_ones() {
         let (result1, result2, index) = Solution::get_next_generation(
             String::from("11"),
             1,
@@ -98,6 +99,18 @@ mod tests {
 
         assert_eq!(result1, String::from("11"));
         assert_eq!(result2, String::from("1.1"));
+        assert_eq!(index, 2);
+    }
+
+    #[test]
+    fn branch_single_character_generation_twos() {
+        let (result1, result2, index) = Solution::get_next_generation(
+            String::from("22"),
+            1,
+            String::from("2"));
+
+        assert_eq!(result1, String::from("22"));
+        assert_eq!(result2, String::from("2.2"));
         assert_eq!(index, 2);
     }
 }
