@@ -3,20 +3,27 @@ pub struct Solution {}
 impl Solution {
     pub fn restore_ip_addresses(s: String) -> Vec<String> {
         let mut result = String::new();
-        //frontier Vec<(String, String, usize)>
+        let mut frontier = vec![(1, String::from(s.chars().nth(0).unwrap()))];
 
-        for (i, char) in s.chars().enumerate() {
-            //if the current node is not valid, return nothing
-            //If there are no more characters from `s` to add, add this to the result
-            //Generate the next generation
+        while !frontier.is_empty() {
+            let (index, candidate) = frontier.pop().unwrap();
 
-            if i > 0 {
-                result.push('.');
+            let last_block = Solution::extract_block(&candidate);
+            if Solution::is_valid_block(last_block) {
+                // Extract into method and test
+                let (candidate1, candidate2, new_index) =
+                    Solution::get_next_generation(&s, index, candidate);
+                // check if end of string. If candidate valid then add to results
+                frontier.push((new_index, candidate1));
+                frontier.push((new_index, candidate2));
             }
-            result.push(char);
         }
 
         vec![result]
+    }
+
+    fn extract_block(candidate: &String) -> &str {
+        ""
     }
 
     fn get_next_generation(
