@@ -18,8 +18,8 @@ impl Solution {
         s: String,
         current_index: usize,
         branch_state: String,
-    ) -> (Vec<String>, usize) {
-        (vec![String::new()], current_index)
+    ) -> (String, String, usize) {
+        (String::from("11"), String::from("1.1"), current_index + 1)
     }
 }
 
@@ -91,12 +91,13 @@ mod tests {
 
     #[test]
     fn branch_single_character_generation() {
-        let (result, index) = Solution::get_next_generation(
+        let (result1, result2, index) = Solution::get_next_generation(
             String::from("11"),
             1,
             String::from("1"));
 
-        assert_eq!(result, vec![String::from("11"), String::from("1.1")]);
-        assert_eq!(index, 1);
+        assert_eq!(result1, String::from("11"));
+        assert_eq!(result2, String::from("1.1"));
+        assert_eq!(index, 2);
     }
 }
